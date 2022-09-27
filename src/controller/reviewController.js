@@ -113,12 +113,12 @@ const deletereviewbyid = async function (req, res) {
         let findbook = await bookModel.findOneAndUpdate({ _id: bookId, isDeleted: false }, { $inc: { reviews: -1 } })
         if (!findbook) return res.status(404).send({ status: false, msg: "Book data might be deleted or it does not exist" })
 
-        await reviewModel.findOneAndUpdate({ _id: reviewId, bookId: bookId, isDeleted: false }, { isDeleted: true }, { new: true })
-        res.status(200).send({ status: true, message: "Data Deleted Successfully" })
+     let savedData =  await reviewModel.findOneAndUpdate({ _id: reviewId, bookId: bookId, isDeleted: false }, { isDeleted: true }, { new: true })
+        res.status(200).send({ status: true, message: "Data Deleted Successfully" ,data: savedData})
     }
 
     catch (error) {
-        res.status(500).send({ status: false, message: error.message })
+        res.status(500).send({ status: false,message: error.message})
     }
 
 }

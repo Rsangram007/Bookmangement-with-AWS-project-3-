@@ -21,6 +21,11 @@ router.post('/books/:bookId/review',createreview.createReview)
 router.put('/books/:bookId/review/:reviewId',createreview.updatereviewbookbybookid)
 router.delete('/books/:bookId/review/:reviewId',createreview.deletereviewbyid)
 
+router.all('/*',function(req, res){
+     return res.status(400).send({messages:"path not found",status:false});
+     }
+     );
+
 
 
 
