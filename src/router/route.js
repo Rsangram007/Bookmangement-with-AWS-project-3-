@@ -4,12 +4,15 @@ const registerUser = require("../controller/userController")
 const createbook = require("../controller/bookController")
 const createreview = require('../controller/reviewController')
 const auth = require('../middleware/middleware')
+const { bookCover } = require('../controller/aws')
+
 
 
 //user
 router.post('/register',registerUser.createUserDocument)
 router.post('/login',registerUser.loginUser)
 //book
+router.post('/write-file-aws',bookCover)
 router.post('/books',createbook.createBook)
 router.get('/books',auth.authentication,createbook.getbooks)
 router.get('/books/:bookId',auth.authentication,createbook.getBooksById)
@@ -21,10 +24,10 @@ router.post('/books/:bookId/review',createreview.createReview)
 router.put('/books/:bookId/review/:reviewId',createreview.updatereviewbookbybookid)
 router.delete('/books/:bookId/review/:reviewId',createreview.deletereviewbyid)
 
-router.all('/*',function(req, res){
-     return res.status(400).send({messages:"path not found",status:false});
-     }
-     );
+// router.all('/*',function(req, res){
+//      return res.status(400).send({messages:"path not found",status:false});
+//      }
+//      );
 
 
 
